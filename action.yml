@@ -10,6 +10,10 @@ inputs:
 
       `assertPrerelease` should be set wherever you *do not* want to publish releases
       from, like CI.
+  gradle-version:
+    description: The version of gradle to use
+    required: false
+    default: '8.8'
   sdk:
     description: |
       The name of the language SDK being published.
@@ -93,3 +97,4 @@ runs:
       uses: ./.pulumi-package-publish/lang/java
       with:
         version: ${{ inputs.version }}
+        gradle-version: ${{ inputs.gradle-version }}
