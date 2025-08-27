@@ -6,7 +6,10 @@ inputs:
   version:
     description: The version of the provider being published.
     required: true
-
+  gradle-version:
+    description: The version of gradle to use
+    required: false
+    default: '8.8'
 runs:
   using: "composite"
   steps:
@@ -21,10 +24,10 @@ runs:
       shell: bash
     - name: Publish Java SDK
       continue-on-error: true
-      uses: gradle/gradle-build-action@9b814496b50909128c6a52622b416c5ffa04db49
+      uses: gradle/actions/setup-gradle@v4
       env:
         PACKAGE_VERSION: ${{ inputs.version }}
       with:
         arguments: publishToSonatype closeAndReleaseSonatypeStagingRepository
         build-root-directory: ./sdk/java
-        gradle-version: 8.3
+        gradle-version: ${{ inputs.gradle-version }}
